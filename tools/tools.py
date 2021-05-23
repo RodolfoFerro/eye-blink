@@ -5,7 +5,7 @@ import imutils
 import dlib
 import cv2
 
-from config import *
+from tools.config import *
 
 
 def eye_aspect_ratio(eye):
