@@ -7,6 +7,8 @@ import cv2
 
 from tools.config import *
 
+import time
+
 
 def eye_aspect_ratio(eye):
     """Computes the euclidean distances between eye landmarks.
@@ -65,6 +67,8 @@ def eye_processor(args):
         frame = cv2.resize(frame, (640, 360))
         original = frame.copy()
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+        start = time.time()
         rects = detector(gray, 0)
 
         for rect in rects:
@@ -122,6 +126,9 @@ def eye_processor(args):
                         (10, 30), cv2.FONT_HERSHEY_SIMPLEX,
                         0.7, GREEN, 2
                     )
+        
+        end = time.time()
+        print(f' * Time for estimation: {end - start} ')
 
         
         # Display the resulting frame
