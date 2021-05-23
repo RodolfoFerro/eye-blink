@@ -44,15 +44,18 @@ def eye_processor(args):
         A dictionary containing the arguments from the parser.
     """
 
-    print('[INFO] loading facial landmark predictor...')
+    if args['verbose']:
+        print('[INFO] Loading facial landmark predictor...')
+
     detector = dlib.get_frontal_face_detector()
     predictor = dlib.shape_predictor(args['shape_predictor'])
 
     (l_start, l_end) = face_utils.FACIAL_LANDMARKS_IDXS['left_eye']
     (r_start, r_end) = face_utils.FACIAL_LANDMARKS_IDXS['right_eye']
 
-    # start the video stream thread
-    print('[INFO] Opening camera...')
+    if args['verbose']:
+        print('[INFO] Opening camera...')
+
     cap = cv2.VideoCapture(0)
 
     while True:
