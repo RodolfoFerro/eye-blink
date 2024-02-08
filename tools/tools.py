@@ -64,7 +64,7 @@ def eye_processor(args):
         global COUNTER, TOTAL, ASLEEP
 
         _, frame = cap.read()
-        frame = cv2.resize(frame, (640, 360))
+        frame = cv2.resize(frame, (1280, 720))
         original = frame.copy()
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
@@ -77,7 +77,7 @@ def eye_processor(args):
 
             for _, (i, j) in face_utils.FACIAL_LANDMARKS_IDXS.items():
                 for (x, y) in shape[i:j]:
-                    cv2.circle(frame, (x, y), 1, POINT_COLOR, -1)
+                    cv2.circle(frame, (x, y), 2, POINT_COLOR, -1)
 
             left_eye = shape[l_start:l_end]
             right_eye = shape[r_start:r_end]
@@ -89,8 +89,8 @@ def eye_processor(args):
 
             left_eye_hull = cv2.convexHull(left_eye)
             right_eye_hull = cv2.convexHull(right_eye)
-            cv2.drawContours(frame, [left_eye_hull], -1, EYES_COLOR, 1)
-            cv2.drawContours(frame, [right_eye_hull], -1, EYES_COLOR, 1)
+            cv2.drawContours(frame, [left_eye_hull], -1, EYES_COLOR, 2)
+            cv2.drawContours(frame, [right_eye_hull], -1, EYES_COLOR, 2)
 
             if ear < EYE_AR_THRESH:
                 COUNTER += 1
@@ -108,7 +108,7 @@ def eye_processor(args):
                     frame, 
                     f'Blinks: {TOTAL}',
                     (10, 30), cv2.FONT_HERSHEY_SIMPLEX,
-                    0.7, TEXT_COLOR, 2
+                    1, TEXT_COLOR, 2
                 )
             
             if args['activity'] == 2:
@@ -117,14 +117,14 @@ def eye_processor(args):
                         frame, 
                         f'The person is sleeping!',
                         (10, 30), cv2.FONT_HERSHEY_SIMPLEX,
-                        0.7, RED, 2
+                        1, RED, 2
                     )
                 else:
                     cv2.putText(
                         frame, 
                         f'The person is paying attention.',
                         (10, 30), cv2.FONT_HERSHEY_SIMPLEX,
-                        0.7, GREEN, 2
+                        1, GREEN, 2
                     )
         
         end = time.time()
